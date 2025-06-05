@@ -23,14 +23,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const isAuthenticated = !!token;
 
-  return <div></div>;
-
-  /*
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
-  );*/
+  );
 };
 
 export const useAuth = () => {

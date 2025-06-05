@@ -2,7 +2,7 @@ import CustomButton from "../components/CustomButton";
 import { useState } from "react";
 import type { resJson } from "../utils/Types";
 import { useNavigate } from "react-router-dom";
-//import { useAuth } from "../utils/AuthProvider";
+import { useAuth } from "../utils/AuthProvider";
 
 const Login = () => {
   const initValues = {
@@ -14,7 +14,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  //const { login } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   //name ja value ovat <input>-elementin attribuutteja (esim. name="tunnus", value="user@example.com")
@@ -46,7 +46,7 @@ const Login = () => {
         //Tallennetaan tokeni ilman "Bearer "-alkuosaa käyttäjän selaimen välimuistiin ja contextiin
         const cleanToken = token.replace("Bearer ", "");
         localStorage.setItem("authToken", cleanToken);
-        //login(cleanToken);
+        login(cleanToken);
         console.log("Token received", localStorage.getItem("authToken"));
       } else {
         console.log("No Token found in the response headers.");
