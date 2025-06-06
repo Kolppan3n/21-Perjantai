@@ -1,23 +1,19 @@
 import { useEffect } from "react";
 import CustomButton from "../components/CustomButton";
+import { useAuth } from "../utils/AuthProvider";
 
 const Logout = () => {
+  const { isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-
-    if (token) {
-      localStorage.removeItem("authToken");
+    if (isAuthenticated) {
+      logout();
     }
   }, []);
 
   return (
     <div className="flex flex-col gap-6">
-      <p>
-        {localStorage.getItem("authToken")
-          ? "Uloskirjautuminen onnistui"
-          : "Et ole kirjautuneena sisään"}
-      </p>
+      <p>Uloskirjautuminen onnistui.</p>
       <CustomButton type="Return" />
     </div>
   );

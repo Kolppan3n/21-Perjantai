@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Tilat from "./pages/Tilat";
 import Varaajat from "./pages/Varaajat";
 import Varaukset from "./pages/Varaukset";
+import AuthProvider from "./utils/AuthProvider";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 
 const router = createBrowserRouter([
   {
@@ -25,21 +27,28 @@ const router = createBrowserRouter([
     element: <Logout />,
   },
   {
-    path: "/tilat",
-    element: <Tilat />,
-  },
-  {
-    path: "/varaajat",
-    element: <Varaajat />,
-  },
-  {
-    path: "/varaukset",
-    element: <Varaukset />,
+    element: <ProtectedRoutes />,
+    children: [
+      {
+        path: "/tilat",
+        element: <Tilat />,
+      },
+      {
+        path: "/varaajat",
+        element: <Varaajat />,
+      },
+      {
+        path: "/varaukset",
+        element: <Varaukset />,
+      },
+    ],
   },
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );
